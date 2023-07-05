@@ -47,7 +47,8 @@ class OrderOneClickPage(BasePage):
         """Заполнить поле 'Адрес доставки, пожелания по способам доставки и оплаты'"""
         self.logger.add_start_step(f"Заполнение поля 'Адрес доставки...' значением: {description}")
         self.type_input(self.description_input, description)
-        self.logger.add_end_step(f"Заполнение поля 'Адрес доставки...' значением: {description}", self.get_current_url())
+        self.logger.add_end_step(f"Заполнение поля 'Адрес доставки...' значением: {description}",
+                                 self.get_current_url())
 
     def click_submit_order(self):
         """Нажать 'Отправить заявку'"""

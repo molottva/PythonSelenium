@@ -27,14 +27,15 @@ class CartPage(BasePage):
         result = []
         try:
             elements = self.wait.until(conditions
-                                .presence_of_all_elements_located((By.CSS_SELECTOR, "[data-entity='basket-item']")))
+                                       .presence_of_all_elements_located(
+                (By.CSS_SELECTOR, "[data-entity='basket-item']")))
         except TimeoutException:
             return result  # Если корзина пустая, то вернет пустой список
         for item in elements:
-            vendor_code = item.find_element(By.CSS_SELECTOR, "[data-entity='basket-item-name']").text\
+            vendor_code = item.find_element(By.CSS_SELECTOR, "[data-entity='basket-item-name']").text \
                 .split("] ")[0]
             vendor_code = re.subn("\[", "", vendor_code)[0]  # Удаляем [
-            title = item.find_element(By.CSS_SELECTOR, "[data-entity='basket-item-name']").text\
+            title = item.find_element(By.CSS_SELECTOR, "[data-entity='basket-item-name']").text \
                 .split("] ")[1].title()
             price = item.find_element(By.CSS_SELECTOR, "[id^='basket-item-price']").text
             price = int(re.subn(" руб", "", price)[0])  # Удаляем ' руб'

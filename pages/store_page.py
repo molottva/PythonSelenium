@@ -30,7 +30,7 @@ class StorePage(BasePage):
             elements = self.wait.until(conditions
                                        .presence_of_all_elements_located((By.CSS_SELECTOR, "[data-entity='item']")))
         except TimeoutException:
-            return result # Если товар отсутствует, то вернет пустой список
+            return result  # Если товар отсутствует, то вернет пустой список
         for item in elements:
             vendor_code = item.find_element(By.CSS_SELECTOR, ".product-item-title-art").text
             vendor_code = re.subn("[\[|\]]", "", vendor_code)[0]  # Удаляем [ и ]
@@ -49,10 +49,10 @@ class StorePage(BasePage):
         :param quantity - кол-во добавляемого товара"""
         self.logger.add_start_step(f"Добавление в корзину товара с артикулом {vendor_code} в количестве {quantity}")
         item = self.driver.find_element(By.XPATH, f"//*[@data-entity='item' and contains(., '[{vendor_code}]')]")
-        self.action.move_to_element(item)\
-            .send_keys_to_element(item.find_element(By.NAME, "quantity"), Keys.DELETE)\
-            .send_keys_to_element(item.find_element(By.NAME, "quantity"), quantity)\
-            .click(item.find_element(By.CSS_SELECTOR, "[onclick*='BUY_BTN']"))\
+        self.action.move_to_element(item) \
+            .send_keys_to_element(item.find_element(By.NAME, "quantity"), Keys.DELETE) \
+            .send_keys_to_element(item.find_element(By.NAME, "quantity"), quantity) \
+            .click(item.find_element(By.CSS_SELECTOR, "[onclick*='BUY_BTN']")) \
             .perform()
         self.logger.add_end_step(f"Добавление в корзину товара с артикулом {vendor_code} в количестве {quantity}",
                                  self.get_current_url())
